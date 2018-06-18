@@ -24,12 +24,12 @@
         android:text="@string/winning_number"
         android:textSize="18sp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/winning_imageView"
+        app:layout_constraintStart_toStartOf="@+id/winning_imageView"
         app:layout_constraintTop_toBottomOf="@+id/results_textview" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/winning_imageView"
         android:layout_width="277dp"
         android:layout_height="277dp"
         android:layout_marginTop="24dp"
@@ -50,5 +50,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/winning_imageView" />
 </android.support.constraint.ConstraintLayout>

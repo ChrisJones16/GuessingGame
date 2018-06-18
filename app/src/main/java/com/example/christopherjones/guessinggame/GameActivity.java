@@ -22,7 +22,7 @@ public class GameActivity extends AppCompatActivity {
     public static final String winningNumber = "WINNING_NUMBER";
 
 
-
+    //TODO fix restarting game
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +37,23 @@ public class GameActivity extends AppCompatActivity {
 
 
       // The comment below will show the number generated at the bottom of screen
-      //  Toast.makeText(this, Integer.toString(generatedNumber), Toast.LENGTH_SHORT).show();
+      // Toast.makeText(this, Integer.toString(generatedNumber), Toast.LENGTH_SHORT).show();
+
 
         setListener();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+       //generates number btwn 1-100
+        generatedNumber = (int) Math.ceil(Math.random() * 100);
+
+        numberOfGuesses = 0;
+        clue.setVisibility(View.INVISIBLE);
+        guess.setText("");
     }
 
     private void setListener() {
@@ -57,14 +71,14 @@ public class GameActivity extends AppCompatActivity {
       try {
         int userGuess = Integer.parseInt(guess.getText().toString());
         if(userGuess > 100 || userGuess <= 0) {
-            clue.setText("Enter a number between 1 and 100");
+            clue.setText(R.string.enter_number_1_100);
             clue.setVisibility(View.VISIBLE);
             guess.setText("");
         } else {
             checkGuess(userGuess);
         }
     } catch (NumberFormatException nfe) {
-            clue.setText("Enter a number");
+            clue.setText(R.string.enter_number);
             clue.setVisibility(View.VISIBLE);
         }
     }
@@ -83,18 +97,20 @@ public class GameActivity extends AppCompatActivity {
             loser.putExtra(winningNumber, generatedNumber);
             startActivity(loser);
         } else if (userGuess < generatedNumber) {
-            //TODO Update clue textView to say higher, set visibility to Visibile, set guess EditText to "" and increment number of guesses by 1
+            // Update clue textView to say higher, set visibility to Visible, set guess EditText to "" and increment number of guesses by 1
 
             clue.setText(R.string.higher);
             clue.setVisibility(View.VISIBLE);
             guess.setText("");
             numberOfGuesses++;
+            Toast.makeText(this, getString(R.string.chances_left, (5-numberOfGuesses)), Toast.LENGTH_SHORT).show();
         } else if (userGuess > generatedNumber) {
-            //TODO Update clue textView to say lower, set visibility to Visibile, set guess EditText to "" and increment number of guesses by 1
-            clue.setText("lower");
+            // Update clue textView to say lower, set visibility to Visible, set guess EditText to "" and increment number of guesses by 1
+            clue.setText(R.string.lower);
             clue.setVisibility(View.VISIBLE);
             guess.setText("");
             numberOfGuesses++;
+            Toast.makeText(this, getString(R.string.chances_left, (5-numberOfGuesses)), Toast.LENGTH_SHORT).show();
         }
     }
 
